@@ -65,7 +65,7 @@ references:
   decode_signing_key: &decode_signing_key
     run:
       name: Decode Android key store
-      command: echo $SIGNING_KEY | base64 -di > $PWD/$PUB_KEY_PATH
+      command: echo $SIGNING_KEY | base64 -di > $PWD/app/$PUB_KEY_PATH
 
   # Googple Play service key
 
