@@ -72,7 +72,7 @@ references:
   decode_service_key: &decode_service_key
     run:
       name: Decode Android key store
-      command: echo $ACCOUNT_KEY | base64 -di > $KEY_SERVICE_ACC
+      command: echo $ACCOUNT_KEY | base64 -di > $PWD/app/$KEY_SERVICE_ACC
  
 jobs:
 
