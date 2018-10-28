@@ -65,14 +65,24 @@ references:
   decode_signing_key: &decode_signing_key
     run:
       name: Decode Android key store
-      command: echo $SIGNING_KEY | base64 -di > $PUB_KEY_PATH
+      command: echo $SIGNING_KEY | base64 -di > $PUB_KEY_FILENAME
+
+  export_signing_key: &export_signing_key
+    run:
+      name: Export Android key store
+      command: export PUB_KEY_PATH=$PWD/$PUB_KEY_FILENAME >> $BASH_ENV
 
   # Googple Play service key
 
   decode_service_key: &decode_service_key
     run:
       name: Decode Android key store
-      command: echo $ACCOUNT_KEY | base64 -di > $KEY_SERVICE_ACC
+      command: echo $ACCOUNT_KEY | base64 -di > $SERVICE_ACC_FILENAME
+
+  export_service_key: &export_service_key
+    run:
+      name: Export service account key store
+      command: export KEY_SERVICE_ACC=$PWD/$SERVICE_ACC_FILENAME >> $BASH_ENV
  
 jobs:
 
@@ -103,6 +113,7 @@ jobs:
       - checkout
       - *restore_cache
       - *decode_signing_key
+      - *export_signing_key
       - run:
           name: Export path
           command: export PUB_KEY_PATH=@PWD/PUB_KEY_PATH >> $BASH_ENV
@@ -154,6 +165,7 @@ jobs:
       - checkout
       - *attach_release_workspace
       - *decode_service_key
+      - *export_service_key
       - *restore_cache
       - run:
           name: Download dependencies
