@@ -4,7 +4,7 @@ apply plugin: 'com.github.triplet.play'
 def versionMajor = 1
 def versionMinor = 0
 def versionPatch = 0
-def versionBuild = 3
+def versionBuild = 4
 
 ext {
     KEY_PATH = System.getenv("PUB_KEY_PATH")
@@ -33,6 +33,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
