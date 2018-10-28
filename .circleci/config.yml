@@ -66,6 +66,9 @@ references:
     run:
       name: Decode Android key store
       command: echo $SIGNING_KEY | base64 -di > PUB_KEY_PATH
+    run:
+      name: Update Path
+      command: export PUB_KEY_PATH=$PWD/PUB_KEY_PATH >> $BASH_ENV
 
   # Googple Play service key
 
