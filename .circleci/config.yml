@@ -65,18 +65,14 @@ references:
   decode_signing_key: &decode_signing_key
     run:
       name: Decode Android key store
-      command: echo $SIGNING_KEY | base64 -di > PUB_KEY_PATH
-  export_signing_key: &export_signing_key
-    run:
-      name: Update Path
-      command: export PUB_KEY_PATH=$PWD/PUB_KEY_PATH >> $BASH_ENV
+      command: echo $SIGNING_KEY | base64 -di > $PUB_KEY_PATH
 
   # Googple Play service key
 
   decode_service_key: &decode_service_key
     run:
       name: Decode Android key store
-      command: echo $ACCOUNT_KEY | base64 -di > KEY_SERVICE_ACC
+      command: echo $ACCOUNT_KEY | base64 -di > $KEY_SERVICE_ACC
  
 jobs:
 
@@ -107,7 +103,6 @@ jobs:
       - checkout
       - *restore_cache
       - *decode_signing_key
-      - *export_signing_key
       - run:
           name: Check path
           command: echo $PUB_KEY_PATH
