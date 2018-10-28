@@ -109,6 +109,9 @@ jobs:
       - *decode_signing_key
       - *export_signing_key
       - run:
+          name: Check path
+          command: echo $PUB_KEY_PATH
+      - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
       - *save_cache      
