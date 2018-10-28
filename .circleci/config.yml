@@ -66,6 +66,7 @@ references:
     run:
       name: Decode Android key store
       command: echo $SIGNING_KEY | base64 -di > PUB_KEY_PATH
+  export_signing_key: &export_signing_key
     run:
       name: Update Path
       command: export PUB_KEY_PATH=$PWD/PUB_KEY_PATH >> $BASH_ENV
@@ -106,6 +107,7 @@ jobs:
       - checkout
       - *restore_cache
       - *decode_signing_key
+      - *export_signing_key
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
