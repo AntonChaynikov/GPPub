@@ -40,14 +40,6 @@ references:
       root: *workspace
       paths:
         - app/build
-  attach_firebase_workspace: &attach_firebase_workspace
-    attach_workspace:
-      at: *workspace
-  persist_firebase_workspace: &persist_firebase_workspace
-    persist_to_workspace:
-      root: *workspace
-      paths:
-        - firebase
 
   ## Docker image configurations
 
@@ -73,11 +65,7 @@ references:
   decode_signing_key: &decode_signing_key
     run:
       name: Decode Android key store
-      command: echo $SIGNING_KEY | base64 -di > key.jks
-  export_signing_key: &export_signing_key
-    run:
-      name: Export Android key store env var
-      command: echo 'export PUB_KEY_PATH="$PWD/key.jks"' >> $BASH_ENV
+      command: echo $SIGNING_KEY | base64 -di > PUB_KEY_PATH
 
   # Googple Play service key
 
@@ -85,10 +73,6 @@ references:
     run:
       name: Decode Android key store
       command: echo $ACCOUNT_KEY | base64 -di > KEY_SERVICE_ACC
-  export_service_key: &export_service_key
-    run:
-      name: Export Android key store env var
-      command: echo 'export KEY_SERVICE_ACC="$PWD/KEY_SERVICE_ACC"' >> $BASH_ENV
  
 jobs:
 
@@ -119,8 +103,6 @@ jobs:
       - checkout
       - *restore_cache
       - *decode_signing_key
-      - *export_signing_key
-      - *check_existance
       - run:
           name: Download dependencies
           command: ./gradlew androidDependencies
@@ -165,6 +147,7 @@ jobs:
     steps:
       - checkout
       - *attach_release_workspace
+      - *decode_service_key
       - *restore_cache
       - run:
           name: Download dependencies
