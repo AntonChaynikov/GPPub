@@ -151,7 +151,6 @@ jobs:
       - checkout
       - *attach_release_workspace
       - *decode_service_key
-      - *export_service_key
       - *restore_cache
       - run:
           name: Download dependencies
