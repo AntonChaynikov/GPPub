@@ -104,6 +104,9 @@ jobs:
       - *restore_cache
       - *decode_signing_key
       - run:
+          name: Export path
+          command: export PUB_KEY_PATH=@PWD/PUB_KEY_PATH >> $BASH_ENV
+      - run:
           name: Check path
           command: echo $PUB_KEY_PATH
       - run:
