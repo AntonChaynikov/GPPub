@@ -154,9 +154,6 @@ jobs:
       - *decode_signing_key
       - *restore_cache
       - run:
-          name: Download dependencies
-          command: ./gradlew androidDependencies
-      - run:
           name: Deploy to Google Play
           command: ./gradlew publishReleaseApk
   
